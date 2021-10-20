@@ -6,25 +6,25 @@ export const command = {
     data: new SlashCommandBuilder()
         .setName('games')
         .setDescription('Game commands')
-        .addSubcommand(subcommand =>
+        .addSubcommand((subcommand: any) =>
             subcommand
                 .setName('pick')
                 .setDescription('Selects a game to play from the list'))
-        .addSubcommand(subcommand =>
+        .addSubcommand((subcommand: any) =>
             subcommand
                 .setName('add')
                 .setDescription('Add a new game to the games list')
-                .addStringOption(opt => opt.setName('target').setDescription('Game to add')))
-        .addSubcommand(subcommand =>
+                .addStringOption((opt: any) => opt.setName('target').setDescription('Game to add')))
+        .addSubcommand((subcommand: any) =>
             subcommand
                 .setName('remove')
                 .setDescription('Remove game from games list')
-                .addStringOption(opt => opt.setName('target').setDescription('Number of game to remove')))
-        .addSubcommand(subcommand =>
+                .addStringOption((opt: any) => opt.setName('target').setDescription('Number of game to remove')))
+        .addSubcommand((subcommand: any) =>
             subcommand
                 .setName('list')
                 .setDescription('List available games')),
-    async execute(interaction) {
+    async execute(interaction: any) {
         if (interaction.options.getSubcommand() === 'pick')
             await interaction.reply(data.games[Math.floor(Math.random() * data.games.length)]);
         else if (interaction.options.getSubcommand() === 'add') {
@@ -42,7 +42,7 @@ export const command = {
                 interaction.reply(`Could not find game to remove.`);
             }
         } else if (interaction.options.getSubcommand() === 'list') {
-            const result = data.games.map((game, i) => `${i + 1}. ${game}\n`).join(" ");
+            const result = data.games.map((game: string, i: number) => `${i + 1}. ${game}\n`).join(" ");
             interaction.reply(result);
         }
     }
@@ -59,4 +59,5 @@ function removeGame(value: string | number): string {
     if (!isNaN(num) && num > 0 && num <= data.games.length) {
         return data.games.splice(num - 1, 1);
     }
+    return '';
 }

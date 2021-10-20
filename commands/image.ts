@@ -10,7 +10,7 @@ export const command = {
     data: new SlashCommandBuilder()
         .setName('images')
         .setDescription('Uploads an image'),
-    async execute(interaction) {
+    async execute(interaction: any) {
         await interaction.reply({embeds: [exampleEmbed], files: [file]});
     }
 }
